@@ -1,0 +1,8 @@
+public class date
+{
+ public class doprocess()
+ {
+  // logic
+   
+  }
+}
