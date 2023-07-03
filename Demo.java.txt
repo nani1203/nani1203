@@ -27,3 +27,23 @@ script {
                     }
                 }
             }
+post {
+                success {
+                    emailext (
+                        to: 'bharath.manimala@bluepal.com',
+                        subject: "Jenkins Pipeline Build Stage Success: ${currentBuild.fullDisplayName}",
+                        body: "The build ${currentBuild.fullDisplayName} PASS:: Jenkins Pipeline Deployment Notification.",
+                        attachLog: true,
+                        mimeType: 'text/html'
+                    )
+                } 
+                failure {
+                    emailext (
+                        to: 'bharath.manimala@bluepal.com',
+                        subject: "Jenkins Pipeline Deployment Notification: ${currentBuild.fullDisplayName}",
+                        body: "The Deploy stage of ${currentBuild.fullDisplayName} has FAILED:: Jenkins Pipeline Deployment Notification.",
+                        attachLog: true,
+                        mimeType: 'text/html'
+                    )
+                }
+            }
