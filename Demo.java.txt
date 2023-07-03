@@ -1,8 +1,29 @@
-public class Demo
-{
- public class doprocess()
- {
-  // logic
-   
-  }
-}
+script {
+                    def url = 'http://banking.bluepalspark.com:7031/'
+                    def response
+                    
+                    try {
+                        response = sh(
+                            script: "curl --silent --head --fail ${url}",
+                            returnStatus: true
+                        )
+                        
+                        if (response == 0) {
+                            def status = sh(
+                                script: "curl --write-out %{http_code} --silent --output /dev/null ${url}",
+                                returnStdout: true
+                            ).trim()
+                            
+                            if (status == '200') {
+                                println "URL is working: ${url}"
+                            } else {
+                                println "URL returned status ${status}: ${url}"
+                            }
+                        } else {
+                            println "URL is not working: ${url}"
+                        }
+                    } catch (Exception e) {
+                        println "URL is not working: ${url}"
+                    }
+                }
+            }
